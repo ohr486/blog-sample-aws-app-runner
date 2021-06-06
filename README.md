@@ -2,7 +2,7 @@
 
 https://blog.ohr486.net/2021/05/24/aws-app-runner
 
-## HOW TO SETUP
+## how to setup.
 
 ```
 $ cd aws
@@ -15,4 +15,10 @@ $ terraform init
 $ terraform plan
 $ terraform apply
 -----
+```
+
+## how to cleanup.
+```
+$ cd aws
+$ terraform destroy
 ```
