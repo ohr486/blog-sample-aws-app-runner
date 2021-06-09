@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :users
+  get "/info/cpu", to: "info#cpu"
+  get "/info/mem", to: "info#mem"
 end
