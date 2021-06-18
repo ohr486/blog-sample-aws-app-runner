@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  web:
+    build: container/nginx
+    ports:
+      - 8080:8080
+    depends_on:
+      - app
+    volumes:
+      - tmp_data:/app/tmp
+      - log_data:/var/log/nginx
+    
+  app:
+    build:
+      context: .
+      dockerfile: container/rails/Dockerfile
+    environment:
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+    command: bundle exec puma -C config/puma.rb
+    tty: true
+    stdin_open: true
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+      - tmp_data:/app/tmp
+      - log_data:/app/log
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  fluentd:
+    build: container/fluentd
+    environment:
+      - AWS_ACCESS_KEY_ID=""
+      - AWS_SECRET_ACCESS_KEY=""
+      - FLUENTD_S3_BUCKET=""
+      - FLUENTD_S3_ENDPIONT=""
+    ports:
+      - 24224:24224
+    depends_on:
+      - app
+    volumes:
+      - log_data:/var/log
+
+volumes:
+  mysql_data:
+  tmp_data:
+  log_data:

@@ -1,0 +1,28 @@
+FROM ruby:3.0.0
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update -qq \
+    && apt-get install -y nodejs yarn nginx \
+    && mkdir /app
+
+WORKDIR /app
+
+# for nginx
+COPY container/nginx/nginx.conf /etc/nginx/app.conf
+
+# for rails
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
+RUN bundle install
+
+COPY . /app
+COPY ep.apprunner.sh /usr/bin/
+
+# for unix domain socket
+RUN mkdir -p tmp/sockets
+
+RUN chmod +x /usr/bin/ap.apprunner.sh
+ENTRYPOINT ["ep.apprunner.sh"]
+
+EXPOSE 8080 3306
