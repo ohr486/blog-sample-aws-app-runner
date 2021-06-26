@@ -25,6 +25,7 @@ resource "aws_rds_cluster_instance" "blog_sample_db1" {
   engine                   = aws_rds_cluster.blog_sample_db.engine
   engine_version           = aws_rds_cluster.blog_sample_db.engine_version
   db_subnet_group_name     = aws_rds_cluster.blog_sample_db.db_subnet_group_name
+  publicly_accessible      = true
 
   tags = {
     Name = "blog-sample-db-1"
