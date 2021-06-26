@@ -22,7 +22,7 @@ COPY ep.apprunner.sh /usr/bin/
 # for unix domain socket
 RUN mkdir -p tmp/sockets
 
-RUN chmod +x /usr/bin/ap.apprunner.sh
+RUN chmod +x /usr/bin/ep.apprunner.sh
 ENTRYPOINT ["ep.apprunner.sh"]
 
 EXPOSE 8080 3306
