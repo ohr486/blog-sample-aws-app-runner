@@ -2,10 +2,10 @@
 
 echo "----- start apache bench -----"
 
-#HOST=SET_TARGET_HOST
+HOST=SET_TARGET_HOST
 
 # demo1
-HOST=https://8zyeju2nf6.ap-northeast-1.awsapprunner.com/
+#HOST=https://8zyeju2nf6.ap-northeast-1.awsapprunner.com/
 
 # demo2
 #HOST=https://3qcejrptyr.ap-northeast-1.awsapprunner.com/
