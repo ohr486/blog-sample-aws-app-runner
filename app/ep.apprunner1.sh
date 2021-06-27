@@ -21,4 +21,4 @@ echo "===== asset precompile ====="
 RAILS_ENV=$RAILS_ENV bundle exec rails assets:precompile
 
 echo "===== start puma ====="
-RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
+RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma1.rb
